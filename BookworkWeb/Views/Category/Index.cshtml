@@ -1,25 +1,39 @@
 ﻿
 @model List<Category>
-<h1> Category View here</h1>
 
-<table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Display Order</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var obj in Model)
-        {
+
+<div class="container">
+    <div class="row pt-4 pb-3">  
+        <div class="col-6">
+            <h2 class="text-dark">
+                Category list
+            </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Category" asp-action="Create" class="btn btn-primary bg-dark ">
+                <i class="bi bi-cart-plus"></i>Create Category
+            </a>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
             <tr>
-                <td>
-                    @obj.Name
-                </td>
-                <td>
-                    @obj.DisplayOrder
-                </td>
+                <th>Name</th>
+                <th>Display Order</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>
+                        @obj.Name
+                    </td>
+                    <td>
+                        @obj.DisplayOrder
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
