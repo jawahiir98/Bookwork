@@ -3,13 +3,11 @@
 @model Category
 
 <form method="post">
-    @* <input asp-for="Id" hidden /> *@
     <div class="border p-3 mt-5">
         <div asp-validation-summary="All">
-
         </div>
         <div class="row pb-2">
-            <h2 class="text-dark">Create Category</h2>
+            <h2 class="text-dark">Edit Category</h2>
         </div>
         <div class="mb-3 row p-1">
             <label asp-for="Name" class="p-0"></label>
@@ -23,8 +21,8 @@
         </div>
         <div class="row">
             <div class="col-6 col-md-3">
-                <button type="submit" class="btn btn-primary form-control" >
-                    Create 
+                <button type="submit" class="btn btn-primary form-control">
+                    Save
                 </button>
             </div>
             <div class="col-6 col-md-3">
@@ -36,7 +34,7 @@
     </div>
 </form>
 
-@section Scripts{
+@section Scripts {
     @{
         <partial name="_ValidationScriptsPartial" />
     }
