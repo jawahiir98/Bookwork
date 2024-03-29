@@ -1,0 +1,41 @@
+﻿@page
+@model BookWorkRazor.Pages.Categories.EditModel
+
+<form method="post">
+    <input asp-for="category.Id" hidden />
+    <div class="border p-3 mt-5">
+        <div asp-validation-summary="All">
+        </div>
+        <div class="row pb-2">
+            <h2 class="text-dark">Edit Category</h2>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="category.Name" class="p-0"></label>
+            <input asp-for="category.Name" class="form-control text-dark" />
+            <span asp-validation-for="category.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for="category.DisplayOrder" class="p-0">Display order</label>
+            <input asp-for="category.DisplayOrder" class="form-control text-dark" />
+            <span asp-validation-for="category.DisplayOrder" class="text-danger"></span>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-primary form-control">
+                    Save
+                </button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-page="/categories/index" class="btn btn-secondary border form-control">
+                    Back to list
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
