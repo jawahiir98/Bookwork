@@ -1,4 +1,5 @@
 ﻿using BookWork.DataAccess.Data;
+using BookWork.DataAccess.Repository.IRepository;
 using BookWork.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,14 @@ namespace BookworkWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext db;
-        public CategoryController(ApplicationDbContext _db)
+        private readonly ICategoryRepository categoryRepository;
+        public CategoryController(ICategoryRepository _db)
         {
-            db = _db;
+            categoryRepository = _db;
         }
         public IActionResult Index()
         {
-            List<Category> categoryList = db.Categories.ToList();   
+            List<Category> categoryList = categoryRepository.GetAll().ToList();   
             return View(categoryList);
         }
         public IActionResult Create()
@@ -29,8 +30,8 @@ namespace BookworkWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
+                categoryRepository.Add(category);
+                categoryRepository.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             } return View();
@@ -41,7 +42,7 @@ namespace BookworkWeb.Controllers
             {
                 return NotFound();
             }
-            Category? cat = db.Categories.FirstOrDefault(u => u.Id == id);
+            Category? cat = categoryRepository.Get(u => u.Id == id);
             if (cat == null) return NotFound();
             return View(cat);
         }
@@ -50,8 +51,8 @@ namespace BookworkWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Update(category);
-                db.SaveChanges();
+                categoryRepository.Update(category);
+                categoryRepository.Save();
                 TempData["success"] = "Category edited successfully";
                 return RedirectToAction("Index");
             }
@@ -63,17 +64,17 @@ namespace BookworkWeb.Controllers
             {
                 return NotFound();
             }
-            Category? cat = db.Categories.FirstOrDefault(u => u.Id == id);
+            Category? cat = categoryRepository.Get(u => u.Id == id);
             if (cat == null) return NotFound();
             return View(cat);
         }
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? cat = db.Categories.FirstOrDefault(c => c.Id == id);
+            Category? cat = categoryRepository.Get(c => c.Id == id);
             if(cat == null) return NotFound();
-            db.Categories.Remove(cat);
-            db.SaveChanges();
+            categoryRepository.Remove(cat);
+            categoryRepository.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
         }
