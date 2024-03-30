@@ -1,4 +1,4 @@
-using BookworkWeb.Data;
+using BookWork.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

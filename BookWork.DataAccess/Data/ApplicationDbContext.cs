@@ -1,7 +1,8 @@
-﻿using BookworkWeb.Models;
+﻿
+using BookWork.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookworkWeb.Data
+namespace BookWork.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

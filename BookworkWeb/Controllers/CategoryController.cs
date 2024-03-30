@@ -1,5 +1,5 @@
-﻿using BookworkWeb.Data;
-using BookworkWeb.Models;
+﻿using BookWork.DataAccess.Data;
+using BookWork.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookworkWeb.Controllers

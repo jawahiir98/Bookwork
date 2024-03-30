@@ -2,52 +2,56 @@
 @model List<Category>
 
 
-<div class="container">
-    <div class="row pt-4 pb-3">  
-        <div class="col-6">
-            <h2 class="text-dark">
-                Category list
-            </h2>
-        </div>
-        <div class="col-6 text-end">
-            <a asp-controller="Category" asp-action="Create" class="btn btn-primary bg-dark ">
-                <i class="bi bi-cart-plus"></i>Create Category
-            </a>
+<div class="card-shadow border-0">
+    <div class="card-header">
+        @* <div asp-validation-summary="All">
+        </div> *@
+        <div class="col-12 text-center">
+            <h2>Category List</h2>
         </div>
     </div>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Display Order</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var obj in Model)
-            {
-                <tr class="w-85">
-                    <td>
-                        @obj.Name
-                    </td>
-                    <td>
-                        @obj.DisplayOrder
-                    </td>
-                    <td >
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-controller="Category" asp-action="Edit" 
-                            asp-route-id="@obj.Id"
-                             class="btn btn-primary mx-2 rounded-2">
-                                <i class="bi bi-pencil-fill"></i>Edit
-                            </a>
-                            <a asp-controller="Category" asp-action="Delete"
-                               asp-route-id="@obj.Id"
-                              class="btn btn-danger mx-2 rounded-2">
-                                <i class="bi bi-trash"></i>Delete
-                            </a>
-                        </div>
-                    </td>
+    <div class="card-body p-4">
+        <div class="row pt-4 pb-3">
+            <div class="col-6 text-end">
+                <a asp-controller="Category" asp-action="Create" class="btn btn-primary bg-dark ">
+                    <i class="bi bi-cart-plus"></i>Create Category
+                </a>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Display Order</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr class="w-85">
+                        <td>
+                            @obj.Name
+                        </td>
+                        <td>
+                            @obj.DisplayOrder
+                        </td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Category" asp-action="Edit"
+                                   asp-route-id="@obj.Id"
+                                   class="btn btn-primary mx-2 rounded-2">
+                                    <i class="bi bi-pencil-fill"></i>Edit
+                                </a>
+                                <a asp-controller="Category" asp-action="Delete"
+                                   asp-route-id="@obj.Id"
+                                   class="btn btn-danger mx-2 rounded-2">
+                                    <i class="bi bi-trash"></i>Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
