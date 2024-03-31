@@ -1,4 +1,5 @@
-﻿using BookWork.DataAccess.Repository.IRepository;
+﻿
+using BookWork.DataAccess.Repository.IRepository;
 using BookWork.DataAccess.Data;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace BookWork.DataAccess.Repository
 
         public void Add(T entity)
         {
-           dbSet.Add(entity);
+            dbSet.Add(entity);
         }
 
         public T Get(Expression<Func<T, bool>> filter)
