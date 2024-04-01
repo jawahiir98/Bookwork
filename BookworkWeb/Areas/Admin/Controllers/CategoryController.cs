@@ -44,9 +44,9 @@ namespace BookworkWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? cat = unitofworkRepository.Category.Get(u => u.Id == id);
-            if (cat == null) return NotFound();
-            return View(cat);
+            Category? category = unitofworkRepository.Category.Get(u => u.Id == id);
+            if (category == null) return NotFound();
+            return View(category);
         }
         [HttpPost]
         public IActionResult Edit(Category category)
@@ -66,16 +66,16 @@ namespace BookworkWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? cat = unitofworkRepository.Category.Get(u => u.Id == id);
-            if (cat == null) return NotFound();
-            return View(cat);
+            Category? category = unitofworkRepository.Category.Get(u => u.Id == id);
+            if (category == null) return NotFound();
+            return View(category);
         }
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            Category? cat = unitofworkRepository.Category.Get(c => c.Id == id);
-            if (cat == null) return NotFound();
-            unitofworkRepository.Category.Remove(cat);
+            Category? category = unitofworkRepository.Category.Get(c => c.Id == id);
+            if (category == null) return NotFound();
+            unitofworkRepository.Category.Remove(category);
             unitofworkRepository.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");

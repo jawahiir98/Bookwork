@@ -24,7 +24,7 @@ namespace BookWork.DataAccess.Repository
 
         public void Save()
         {
-            db.SaveChanges();
+             db.SaveChanges();
         }
 
     }

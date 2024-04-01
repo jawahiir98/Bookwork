@@ -13,7 +13,7 @@
     <div class="card-body p-4">
         <div class="row pt-4 pb-3">
             <div class="col-6 text-end">
-                <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="btn btn-primary bg-dark ">
+                <a asp-area="Admin" asp-controller="Product" asp-action="Upsert" class="btn btn-primary bg-dark ">
                     <i class="bi bi-cart-plus"></i>Create Product
                 </a>
             </div>
@@ -21,11 +21,12 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Title</th>
+                    <th>Titile</th>
                     <th>ISBN</th>
                     <th>Price</th>
                     <th>Author</th>
-                    <th>List Price</th>
+                    <th>Category</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -45,11 +46,11 @@
                             @obj.Author
                         </td>
                         <td>
-                            @obj.ListPrice
+                          
                         </td>
                         <td>
                             <div class="w-75 btn-group" role="group">
-                                <a asp-area="Admin" asp-controller="Product" asp-action="Edit"
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Upsert"
                                    asp-route-id="@obj.Id"
                                    class="btn btn-primary mx-2 rounded-2">
                                     <i class="bi bi-pencil-fill"></i>Edit
