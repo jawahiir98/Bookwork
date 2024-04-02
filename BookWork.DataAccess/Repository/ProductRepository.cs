@@ -24,7 +24,25 @@ namespace BookWork.DataAccess.Repository
 
         public void Update(Product product)
         {
-            db.Update(product);
+            var obj = db.Products.FirstOrDefault(u => u.Id == product.Id);
+            if(obj != null)
+            {
+                obj.Title = product.Title;
+                obj.Description = product.Description;
+                obj.Price = product.Price;
+                obj.ListPrice = product.ListPrice;
+                obj.ISBN = product.ISBN;
+                obj.Description = product.Description;
+                obj.Author = product.Author;
+                obj.Price50 = product.Price50;
+                obj.Price100 = product.Price100;
+                obj.Category = product.Category;
+                obj.CategoryId = product.CategoryId;
+                if(obj.ImageUrl != null)
+                {
+                    obj.ImageUrl = product.ImageUrl;
+                }
+            }
         }
     }
 }

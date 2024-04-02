@@ -1,4 +1,5 @@
 ﻿using BookWork.DataAccess.Data;
+using BookWork.DataAccess.Repository;
 using BookWork.DataAccess.Repository.IRepository;
 using BookWork.Models;
 using BookWork.Models.ViewModels;
@@ -21,7 +22,8 @@ namespace BookworkWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> products = unitofworkRepository.Product.GetAll().ToList();
+            List<Product> products = unitofworkRepository.Product.GetAll(includeProperties:"Category").ToList();
+
             return View(products);
         }
         public IActionResult Upsert(int? id) // If id is found, it is an update function. Else just insert function. 
@@ -59,6 +61,17 @@ namespace BookworkWeb.Areas.Admin.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRootPath, @"images\product");
+                    if (!string.IsNullOrEmpty(productvm.Product.ImageUrl))
+                    {
+                        //delete the old image
+                        var oldImagePath =
+                            Path.Combine(wwwRootPath, productvm.Product.ImageUrl.TrimStart('\\'));
+
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
 
                     using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
                     {
@@ -67,7 +80,18 @@ namespace BookworkWeb.Areas.Admin.Controllers
 
                     productvm.Product.ImageUrl = @"\images\product\" + fileName;
                 }
-                unitofworkRepository.Product.Add(productvm.Product);
+                else if(file == null)
+                {
+                    productvm.Product.ImageUrl = "";
+                }
+                if (productvm.Product.Id == 0)
+                {
+                    unitofworkRepository.Product.Add(productvm.Product);
+                }
+                else
+                {
+                    unitofworkRepository.Product.Update(productvm.Product);
+                }
                 unitofworkRepository.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");

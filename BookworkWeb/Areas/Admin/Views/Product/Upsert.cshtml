@@ -1,12 +1,12 @@
 ﻿@model ProductVM
 
 
-<div class="card-shadow border-0">
-    <div class="card-header">
-        @* <div asp-validation-summary="All">
-        </div> *@
-        <div class="col-12 text-center">
-            <h2 class="py-2"> @(Model.Product.Id != 0?"Update" : "Create") product</h2>
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2"> @(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
+            </div>
         </div>
     </div>
     <div class="card-body p-4">
@@ -64,7 +64,7 @@
                             <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" class="form-select border-0 shadow">
                                 <option disabled selected>--Select Category--</option>
                             </select>
-                            <label asp-for="Product.CategoryId" class="ms-2"></label>
+                            <label asp-for="@Model.Product.CategoryId" class="ms-2"></label>
                             <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
@@ -88,15 +88,14 @@
                                 </a>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-                @* <div class="col-2">
+                <div class="col-2">
                     <img src="@Model.Product.ImageUrl" width="100%"
                          style="border-radius:5px; border:1px solid #bbb9b9" />
-                </div> *@
+                </div>
             </div>
+
         </form>
     </div>
 </div>
