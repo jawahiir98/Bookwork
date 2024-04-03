@@ -18,7 +18,7 @@
                 </a>
             </div>
         </div>
-        <table class="table table-bordered table-striped">
+        <table id="tblData" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Titile</th>
@@ -29,42 +29,10 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var obj in Model)
-                {
-                    <tr class="w-85">
-                        <td>
-                            @obj.Title
-                        </td>
-                        <td>
-                            @obj.ISBN
-                        </td>
-                        <td>
-                            @obj.Price
-                        </td>
-                        <td>
-                            @obj.Author
-                        </td>
-                        <td>
-                            @obj.Category.Name
-                        </td>
-                        <td>
-                            <div class="w-75 btn-group" role="group">
-                                <a asp-area="Admin" asp-controller="Product" asp-action="Upsert"
-                                   asp-route-id="@obj.Id"
-                                   class="btn btn-primary mx-2 rounded-2">
-                                    <i class="bi bi-pencil-fill"></i>Edit
-                                </a>
-                                <a asp-area="Admin" asp-controller="Product" asp-action="Delete"
-                                   asp-route-id="@obj.Id"
-                                   class="btn btn-danger mx-2 rounded-2">
-                                    <i class="bi bi-trash"></i>Delete
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
         </table>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/product.js"></script>
+}

@@ -87,13 +87,15 @@ namespace BookworkWeb.Areas.Admin.Controllers
                 if (productvm.Product.Id == 0)
                 {
                     unitofworkRepository.Product.Add(productvm.Product);
+                    TempData["success"] = "Product created successfully";
                 }
                 else
                 {
                     unitofworkRepository.Product.Update(productvm.Product);
+                    TempData["success"] = "Product edited successfully";
                 }
                 unitofworkRepository.Save();
-                TempData["success"] = "Product created successfully";
+               
                 return RedirectToAction("Index");
             }
             productvm.CategoryList = unitofworkRepository.Category.GetAll().Select(
@@ -105,25 +107,40 @@ namespace BookworkWeb.Areas.Admin.Controllers
                 );
             return View(productvm);
         }
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<Product> objProductList = unitofworkRepository.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new { data = objProductList });
+        }
+
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0)
+            var productToBeDeleted = unitofworkRepository.Product.Get(u => u.Id == id);
+            if (productToBeDeleted == null)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Error while deleting" });
             }
-            Product? cat = unitofworkRepository.Product.Get(u => u.Id == id);
-            if (cat == null) return NotFound();
-            return View(cat);
-        }
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int? id)
-        {
-            Product? cat = unitofworkRepository.Product.Get(c => c.Id == id);
-            if (cat == null) return NotFound();
-            unitofworkRepository.Product.Remove(cat);
+
+            var oldImagePath =
+                           Path.Combine(_webHostEnvironment.WebRootPath,
+                           productToBeDeleted.ImageUrl.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+
+            unitofworkRepository.Product.Remove(productToBeDeleted);
             unitofworkRepository.Save();
-            TempData["success"] = "Product deleted successfully";
-            return RedirectToAction("Index");
+
+            return Json(new { success = true, message = "Delete Successful" });
         }
+
+
+        #endregion
     }
 }
