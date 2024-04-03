@@ -1,5 +1,7 @@
+using BookWork.DataAccess.Repository.IRepository;
 using BookWork.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace BookworkWeb.Areas.Customer.Controllers
@@ -8,15 +10,22 @@ namespace BookworkWeb.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IUnitOfWork _unitofWork;
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
+            _unitofWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Product> productList = _unitofWork.Product.GetAll(includeProperties:"Category").ToList(); 
+            return View(productList);
+        }
+        public IActionResult Details(int id)
+        {
+            Product product = _unitofWork.Product.Get(u => u.Id == id, includeProperties: "Category");
+            return View(product);
         }
 
         public IActionResult Privacy()
